@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
 
+import epicode.u5s1g3.entities.Boscaiola;
 import epicode.u5s1g3.entities.Cappellino;
 import epicode.u5s1g3.entities.CocaCola;
 import epicode.u5s1g3.entities.ExtraSalame;
@@ -29,31 +30,43 @@ public class BeansConfiguration {
 	public double costoCoperto;
 
 	@Bean
+	@Scope("singleton")
 	Pizza margherita() {
 		return new Pizza();
 	}
 
 	@Bean
+	@Scope("singleton")
+	Boscaiola boscaiola() {
+		return new Boscaiola(new Pizza());
+	}
+
+	@Bean
+	@Scope("singleton")
 	ProsciuttoExtra prosciutto() {
 		return new ProsciuttoExtra(new Pizza());
 	}
 
 	@Bean
+	@Scope("singleton")
 	PizzaXL prosciuttoXL() {
 		return new PizzaXL(new ProsciuttoExtra(new Pizza()));
 	}
 
 	@Bean
+	@Scope("singleton")
 	ExtraSalame extraSalame() {
 		return new ExtraSalame(new Pizza());
 	}
 
 	@Bean
+	@Scope("singleton")
 	CocaCola cocaCola() {
 		return new CocaCola();
 	}
 
 	@Bean
+	@Scope("singleton")
 	Cappellino cappello() {
 		return new Cappellino();
 	}
@@ -65,6 +78,7 @@ public class BeansConfiguration {
 	}
 
 	@Bean
+	@Scope("prototype")
 	List<Prodotto> getComanda() {
 		List<Prodotto> comanda = new ArrayList<>();
 		comanda.add(prosciuttoXL());
@@ -74,6 +88,7 @@ public class BeansConfiguration {
 	}
 
 	@Bean
+	@Scope("prototype")
 	Ordine getOrdine() {
 
 		return new Ordine(3, getTavolo(), getComanda(), StatoOrdine.PRONTO, 2, LocalDateTime.of(2023, 05, 30, 12, 30),

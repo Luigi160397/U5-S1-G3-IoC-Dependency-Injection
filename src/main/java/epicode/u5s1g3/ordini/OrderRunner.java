@@ -11,6 +11,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.stereotype.Component;
 
 import epicode.u5s1g3.config.BeansConfiguration;
+import epicode.u5s1g3.entities.Boscaiola;
 import epicode.u5s1g3.entities.Cappellino;
 import epicode.u5s1g3.entities.CocaCola;
 import epicode.u5s1g3.entities.ExtraSalame;
@@ -34,6 +35,7 @@ public class OrderRunner implements CommandLineRunner {
 	public static void menuPizze(double costoCoperto) {
 		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(BeansConfiguration.class);
 		Pizza margherita = (Pizza) ctx.getBean("margherita");
+		Boscaiola boscaiola = (Boscaiola) ctx.getBean("boscaiola");
 		PizzaXL prosciuttoXL = (PizzaXL) ctx.getBean("prosciuttoXL");
 		ExtraSalame diavola = (ExtraSalame) ctx.getBean("extraSalame");
 		CocaCola cocaCola = (CocaCola) ctx.getBean("cocaCola");
@@ -41,9 +43,9 @@ public class OrderRunner implements CommandLineRunner {
 
 		Tavolo tavolo2 = new Tavolo(2, 5, StatoTavolo.LIBERO);
 
-		List<Prodotto> listaOrd1 = new ArrayList<>(Arrays.asList(diavola, cocaCola));
+		List<Prodotto> listaOrd1 = new ArrayList<>(Arrays.asList(boscaiola, cocaCola));
 
-		Ordine ordine2 = new Ordine(1, tavolo2, listaOrd1, StatoOrdine.IN_CORSO, 2,
+		Ordine ordine2 = new Ordine(1, tavolo2, listaOrd1, StatoOrdine.IN_CORSO, 1,
 				LocalDateTime.of(2023, 06, 30, 11, 0), costoCoperto);
 
 		Ordine ordine1 = (Ordine) ctx.getBean("getOrdine");
@@ -54,6 +56,7 @@ public class OrderRunner implements CommandLineRunner {
 		log.info(prosciuttoXL.toString());
 		log.info(diavola.toString());
 		log.info(margherita.toString());
+		log.info(boscaiola.toString());
 		log.info("-------------------- Drinks --------------------");
 		log.info(cocaCola.toString());
 		log.info("-------------------- Accessori --------------------");
