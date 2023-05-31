@@ -50,6 +50,26 @@ public class OrderRunner implements CommandLineRunner {
 
 		Ordine ordine1 = (Ordine) ctx.getBean("getOrdine");
 
+		// Ordine personalizzato;
+
+		Tavolo tavolo3 = (Tavolo) ctx.getBean("tavoloPersonalizzabile");
+		tavolo3.setNumero(3);
+		tavolo3.setNCopertiMax(2);
+		tavolo3.setStato(StatoTavolo.LIBERO);
+
+		List<Prodotto> comanda3 = (List<Prodotto>) ctx.getBean("comandaPersonalizzabile");
+		comanda3.add(cappellino);
+
+		Ordine ordine3 = (Ordine) ctx.getBean("ordinePersonalizzabile");
+		ordine3.setNumeroOrdine(7);
+		ordine3.setTavolo(tavolo3);
+		ordine3.setStatoOrdine(StatoOrdine.PRONTO);
+		ordine3.setNumeroCoperti(1);
+		ordine3.setOraAcquisizione(LocalDateTime.of(2023, 06, 30, 21, 0));
+		ordine3.setComanda(comanda3);
+		ordine3.setCostoCoperto(costoCoperto);
+		ordine3.setImportoTotale(ordine3.totOrdine(comanda3, costoCoperto, 1));
+
 		log.info("-------------------- Menù --------------------");
 		log.info("");
 		log.info("-------------------- Pizze --------------------");
@@ -67,6 +87,9 @@ public class OrderRunner implements CommandLineRunner {
 		log.info("");
 		log.info("-------------------- Ordine 2 --------------------");
 		log.info(ordine2.toString());
+		log.info("");
+		log.info("-------------------- Ordine 3 --------------------");
+		log.info(ordine3.toString());
 		ctx.close();
 
 	}

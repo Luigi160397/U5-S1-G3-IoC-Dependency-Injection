@@ -5,10 +5,12 @@ import java.util.List;
 
 import epicode.u5s1g3.entities.Prodotto;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 
 public class Ordine {
 	private int numeroOrdine;

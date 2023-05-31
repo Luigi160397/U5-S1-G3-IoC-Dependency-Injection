@@ -72,13 +72,13 @@ public class BeansConfiguration {
 	}
 
 	@Bean
-	@Scope("prototype")
+	@Scope("singleton")
 	Tavolo getTavolo() {
 		return new Tavolo(1, 4, StatoTavolo.OCCUPATO);
 	}
 
 	@Bean
-	@Scope("prototype")
+	@Scope("singleton")
 	List<Prodotto> getComanda() {
 		List<Prodotto> comanda = new ArrayList<>();
 		comanda.add(prosciuttoXL());
@@ -88,11 +88,30 @@ public class BeansConfiguration {
 	}
 
 	@Bean
-	@Scope("prototype")
+	@Scope("singleton")
 	Ordine getOrdine() {
 
 		return new Ordine(3, getTavolo(), getComanda(), StatoOrdine.PRONTO, 2, LocalDateTime.of(2023, 05, 30, 12, 30),
 				costoCoperto);
+	}
+
+	@Bean
+	@Scope("prototype")
+	Tavolo tavoloPersonalizzabile() {
+		return new Tavolo();
+	}
+
+	@Bean
+	@Scope("prototype")
+	List<Prodotto> comandaPersonalizzabile() {
+		List<Prodotto> comanda = new ArrayList<>();
+		return comanda;
+	}
+
+	@Bean
+	@Scope("prototype")
+	Ordine ordinePersonalizzabile() {
+		return new Ordine();
 	}
 
 }
